@@ -1,0 +1,29 @@
+{
+  "name": "poap-delegated-mint",
+  "version": "1.0.0",
+  "description": "POAP delegated token mint",
+  "main": "index.js",
+  "scripts": {
+    "chain": "npx buidler node",
+    "compile": "npx buidler compile",
+    "test": "npx buidler test"
+  },
+  "keywords": [
+    "POAP",
+    "ethereum"
+  ],
+  "author": "ragonzal",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomiclabs/buidler": "^1.3.2",
+    "@nomiclabs/buidler-ethers": "^1.3.2",
+    "@nomiclabs/buidler-waffle": "^1.3.2",
+    "chai": "^4.2.0",
+    "ethereum-waffle": "^2.4.1",
+    "ethers": "^4.0.47",
+    "husky": "^4.2.5"
+  },
+  "dependencies": {
+    "eth-crypto": "^1.6.0"
+  }
+}
