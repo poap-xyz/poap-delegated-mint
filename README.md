@@ -38,9 +38,8 @@ npx buidler run scripts/deploy.js --network localhost
 ```
 
 ## TODO list ##
-- [ ] Add tests for token minting
+- [x] Add tests for token minting
 - [ ] Create a deploy script
-- [ ] 
 
 
 ## Going live ##

@@ -10,15 +10,15 @@ function getEnvVariable(name) {
 
 function signMessage(pk=null, event, address) {
   const privateKey = pk ? pk : getEnvVariable('SIGNER_PK');
-
   let params = [
     {type: "uint256", value: event},
     {type: "address", value: address}
   ];
 
   const message = EthCrypto.hash.keccak256(params);
-  const signature = EthCrypto.sign(privateKey, message);
-  console.log('Signature: ', signature);
-
-  return signature
+  return EthCrypto.sign(privateKey, message);
 }
+
+module.exports = {
+  signMessage
+};

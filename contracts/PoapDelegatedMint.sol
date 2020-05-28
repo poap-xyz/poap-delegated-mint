@@ -4,6 +4,10 @@ import "./Poap.sol";
 
 contract PoapDelegatedMint {
 
+    event Mint(
+        bytes32 _signedMessage
+    );
+
     string public name = "POAP Delegated Mint";
 
     // POAP Contract - Only Mint Token function
@@ -52,18 +56,19 @@ contract PoapDelegatedMint {
         return (v, r, s);
     }
 
-    function _isValidData(uint256 _event_id, address _receiver, bytes memory _signature) private view returns(bool) {
+    function _isValidData(uint256 _event_id, address _receiver, bytes memory _signed_message) private view returns(bool) {
         bytes32 message = keccak256(abi.encodePacked(_event_id, _receiver));
-        return (_recoverSigner(message, _signature) == validSigner);
+        return (_recoverSigner(message, _signed_message) == validSigner);
     }
 
-    function mintToken(uint256 event_id, address receiver, bytes memory signature) public returns (bool) {
+    function mintToken(uint256 event_id, address receiver, bytes memory signedMessage) public returns (bool) {
         // Check that the signature is valid
-        require(_isValidData(event_id, receiver, signature), "Invalid signature");
+        require(_isValidData(event_id, receiver, signedMessage), "Invalid signed message");
         // Check that the signature was not already processed
-        require(processed[signature] == false, "Signature already processed");
+        require(processed[signedMessage] == false, "Signature already processed");
 
-        processed[signature] = true;
+        processed[signedMessage] = true;
+        emit VerifiedSignature(signedMessage);
         return POAPToken.mintToken(event_id, receiver);
     }
 }
