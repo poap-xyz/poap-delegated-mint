@@ -38,6 +38,16 @@ Copy of `.env.template` to `.env` and complete with your variables before runnin
 npx buidler run scripts/deploy.js
 ```
 
+#### Verifying the contract ####
+Used [solidity-flattner](https://github.com/BlockCatIO/solidity-flattener) with the following command
+```bash
+solidity_flattener contracts/PoapDelegatedMint.sol --solc-paths="@openzeppelin/=$(pwd)/node_modules/@openzeppelin/" --output PoapDelegatedMintFlattened.sol
+```
+
+## Deployed contracts ##
+ - Mainnet: [0xAac2497174f2Ec4069A98375A67D798db8a05337](https://etherscan.io/address/0xAac2497174f2Ec4069A98375A67D798db8a05337)
+ - Ropsten: [0x2f3c23b50396EcB55C73956B069CF04e493bdEf9](https://ropsten.etherscan.io/address/0x2f3c23b50396EcB55C73956B069CF04e493bdEf9)
+
 ## TODO list ##
 - [x] Add tests for token minting
 - [x] Create a deploy script
