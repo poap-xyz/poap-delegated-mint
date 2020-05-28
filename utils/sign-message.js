@@ -20,5 +20,6 @@ function signMessage(pk=null, event, address) {
 }
 
 module.exports = {
+  getEnvVariable,
   signMessage
 };

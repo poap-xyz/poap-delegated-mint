@@ -4,3 +4,9 @@ node_modules
 #Buidler files
 cache
 artifacts
+
+# Env variables
+.env
+
+# Local files
+.local/

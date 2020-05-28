@@ -33,13 +33,14 @@ yarn test           # Run tests
 ```
 
 ### Deploy ###
+Copy of `.env.template` to `.env` and complete with your variables before running the script below
 ```bash
-npx buidler run scripts/deploy.js --network localhost
+npx buidler run scripts/deploy.js
 ```
 
 ## TODO list ##
 - [x] Add tests for token minting
-- [ ] Create a deploy script
+- [x] Create a deploy script
 
 
 ## Going live ##
