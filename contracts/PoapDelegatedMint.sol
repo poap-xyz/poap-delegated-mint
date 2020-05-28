@@ -4,8 +4,8 @@ import "./Poap.sol";
 
 contract PoapDelegatedMint {
 
-    event Mint(
-        bytes32 _signedMessage
+    event VerifiedSignature(
+        bytes _signedMessage
     );
 
     string public name = "POAP Delegated Mint";
