@@ -55,6 +55,6 @@ solidity_flattener contracts/PoapDelegatedMint.sol --solc-paths="@openzeppelin/=
 
 ## Going live ##
 Before going live, it's necessary to:
-- [ ] Add the deployed address contract as a POAP event minter
-- [ ] Add an endpoint to the POAP server to validate a QR claim and sign the corresponding message
-- [ ] Change the [POAP claim frontend](https://app.poap.xyz/claim) to allow users to pay the gas of their token mint
+- [x] Add the deployed address contract as a POAP event minter
+- [x] Add an endpoint to the POAP server to validate a QR claim and sign the corresponding message
+- [x] Change the [POAP claim frontend](https://app.poap.xyz/claim) to allow users to pay the gas of their token mint
