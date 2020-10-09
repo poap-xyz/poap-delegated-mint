@@ -127,7 +127,7 @@ describe("Poap delegated mint contract", function () {
     it("Should renounce as a PoapAdmin", async function () {
 			await contractPoap.addAdmin(contractDelegatedMint.address);
 			expect(await contractPoap.isAdmin(contractDelegatedMint.address)).to.be.equal(true);
-			await contractDelegatedMint.renouncePaopAdmin();
+			await contractDelegatedMint.renouncePoapAdmin();
 			expect(await contractPoap.isAdmin(contractDelegatedMint.address)).to.be.equal(false);
 		});
 

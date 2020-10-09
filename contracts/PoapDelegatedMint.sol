@@ -56,7 +56,7 @@ contract PoapDelegatedMint is Ownable, Pausable {
         return (v, r, s);
     }
 
-    function renouncePaopAdmin() public onlyOwner {
+    function renouncePoapAdmin() public onlyOwner {
         POAPToken.renounceAdmin();
     }
 
@@ -70,7 +70,7 @@ contract PoapDelegatedMint is Ownable, Pausable {
         require(_isValidData(eventId, tokenId, receiver, signedMessage), "Invalid signed message");
         // Check that the signature was not already processed
         require(processed[signedMessage] == false, "Signature already processed");
-        // Check that the signature was not already processed
+        // Check that the token was not already processed
         require(processedTokens[tokenId] == false, "Token already processed");
 
         processed[signedMessage] = true;
