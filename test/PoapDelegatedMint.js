@@ -95,7 +95,7 @@ describe("Poap delegated mint contract", function () {
       expect(await contractPoap.balanceOf(receiver)).to.equal(1);
     });
 
-		it("Should fail at a processed token", async function () {
+    it("Should fail at a processed token", async function () {
 			let event = 1;
 			let token = 1;
 			let receiver1 = await addr1.getAddress();
@@ -112,7 +112,7 @@ describe("Poap delegated mint contract", function () {
 			expect(await contractPoap.balanceOf(receiver2)).to.equal(0);
 		});
 
-		it("Should fail when the contract is paused", async function () {
+    it("Should fail when the contract is paused", async function () {
 			let event = 1;
 			let token = 1;
 			let receiver = await addr1.getAddress();
@@ -124,7 +124,7 @@ describe("Poap delegated mint contract", function () {
 			await expect(contractDelegatedMint.mintToken(event, token, receiver, signature)).to.be.revertedWith("Pausable: paused");
 		});
 
-		it("Should renounce as a PoapAdmin", async function () {
+    it("Should renounce as a PoapAdmin", async function () {
 			await contractPoap.addAdmin(contractDelegatedMint.address);
 			expect(await contractPoap.isAdmin(contractDelegatedMint.address)).to.be.equal(true);
 			await contractDelegatedMint.renouncePaopAdmin();
