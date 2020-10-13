@@ -3,8 +3,32 @@ pragma solidity ^0.5.15;
 // Minimal POAP contract implementation
 // Needed for the main contract
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/access/Roles.sol";
 
-contract Poap is ERC721 {
+contract PoapRoles {
+    using Roles for Roles.Role;
+
+    Roles.Role private _admins;
+
+    function renounceAdmin() public {
+        _removeAdmin(msg.sender);
+    }
+
+    function _addAdmin(address account) internal {
+        _admins.add(account);
+    }
+
+    function isAdmin(address account) public view returns (bool) {
+        return _admins.has(account);
+    }
+
+    function _removeAdmin(address account) internal {
+        _admins.remove(account);
+    }
+
+}
+
+contract Poap is ERC721, PoapRoles  {
     event EventToken(uint256 eventId, uint256 tokenId);
 
     // Last Used id (used to generate new ids)
@@ -33,8 +57,16 @@ contract Poap is ERC721 {
      * @param to The address that will receive the minted tokens.
      * @return A boolean that indicates if the operation was successful.
      */
-    function mintToken(uint256 eventId, address to) public returns (bool) {
-        lastId += 1;
-        return _mintToken(eventId, lastId, to);
+    function mintToken(uint256 eventId, uint256 tokenId, address to) public returns (bool) {
+        return _mintToken(eventId, tokenId, to);
     }
+
+    function renounceAdmin() public {
+        _removeAdmin(msg.sender);
+    }
+
+    function addAdmin(address account) public {
+        _addAdmin(account);
+    }
+
 }

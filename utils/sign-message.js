@@ -8,10 +8,11 @@ function getEnvVariable(name) {
   return process.env[name];
 }
 
-function signMessage(pk=null, event, address) {
+function signMessage(pk=null, event, token, address) {
   const privateKey = pk ? pk : getEnvVariable('SIGNER_PK');
   let params = [
     {type: "uint256", value: event},
+    {type: "uint256", value: token},
     {type: "address", value: address}
   ];
 

@@ -1,8 +1,10 @@
 pragma solidity ^0.5.15;
 
 import "./Poap.sol";
+import "@openzeppelin/contracts/ownership/Ownable.sol";
+import "@openzeppelin/contracts/lifecycle/Pausable.sol";
 
-contract PoapDelegatedMint {
+contract PoapDelegatedMint is Ownable, Pausable {
 
     event VerifiedSignature(
         bytes _signedMessage
@@ -13,19 +15,17 @@ contract PoapDelegatedMint {
     // POAP Contract - Only Mint Token function
     Poap POAPToken;
 
-    // Contract creator
-    address public owner;
-
     // POAP valid token minter
     address public validSigner;
 
     // Processed signatures
     mapping(bytes => bool) public processed;
 
+    mapping(uint256 => bool) public processedTokens;
+
     constructor (address _poapContractAddress, address _validSigner) public{
         validSigner = _validSigner;
         POAPToken = Poap(_poapContractAddress);
-        owner = msg.sender;
     }
 
     function _recoverSigner(bytes32 message, bytes memory signature) private pure returns (address) {
@@ -56,19 +56,26 @@ contract PoapDelegatedMint {
         return (v, r, s);
     }
 
-    function _isValidData(uint256 _event_id, address _receiver, bytes memory _signed_message) private view returns(bool) {
-        bytes32 message = keccak256(abi.encodePacked(_event_id, _receiver));
-        return (_recoverSigner(message, _signed_message) == validSigner);
+    function renouncePoapAdmin() public onlyOwner {
+        POAPToken.renounceAdmin();
     }
 
-    function mintToken(uint256 event_id, address receiver, bytes memory signedMessage) public returns (bool) {
+    function _isValidData(uint256 _eventId, uint256 _tokenId, address _receiver, bytes memory _signedMessage) private view returns(bool) {
+        bytes32 message = keccak256(abi.encodePacked(_eventId, _tokenId, _receiver));
+        return (_recoverSigner(message, _signedMessage) == validSigner);
+    }
+
+    function mintToken(uint256 eventId, uint256 tokenId, address receiver, bytes memory signedMessage) public whenNotPaused returns (bool) {
         // Check that the signature is valid
-        require(_isValidData(event_id, receiver, signedMessage), "Invalid signed message");
+        require(_isValidData(eventId, tokenId, receiver, signedMessage), "Invalid signed message");
         // Check that the signature was not already processed
         require(processed[signedMessage] == false, "Signature already processed");
+        // Check that the token was not already processed
+        require(processedTokens[tokenId] == false, "Token already processed");
 
         processed[signedMessage] = true;
+        processedTokens[tokenId] = true;
         emit VerifiedSignature(signedMessage);
-        return POAPToken.mintToken(event_id, receiver);
+        return POAPToken.mintToken(eventId, tokenId, receiver);
     }
 }
