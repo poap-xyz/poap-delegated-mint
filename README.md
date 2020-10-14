@@ -45,16 +45,5 @@ solidity_flattener contracts/PoapDelegatedMint.sol --solc-paths="@openzeppelin/=
 ```
 
 ## Deployed contracts ##
- - Mainnet: [0xAac2497174f2Ec4069A98375A67D798db8a05337](https://etherscan.io/address/0xAac2497174f2Ec4069A98375A67D798db8a05337)
- - Ropsten: [0x2f3c23b50396EcB55C73956B069CF04e493bdEf9](https://ropsten.etherscan.io/address/0x2f3c23b50396EcB55C73956B069CF04e493bdEf9)
-
-## TODO list ##
-- [x] Add tests for token minting
-- [x] Create a deploy script
-
-
-## Going live ##
-Before going live, it's necessary to:
-- [x] Add the deployed address contract as a POAP event minter
-- [x] Add an endpoint to the POAP server to validate a QR claim and sign the corresponding message
-- [x] Change the [POAP claim frontend](https://app.poap.xyz/claim) to allow users to pay the gas of their token mint
+ - Mainnet: [0x6F2235864Cf897078FcdCC2854b76C482cd16874](https://etherscan.io/address/0x6F2235864Cf897078FcdCC2854b76C482cd16874)
+ - Kovan: [0x3B5EBa3B482048f1465B8Be6a75D0eF04Ab3F6de](https://kovan.etherscan.io/address/0x3B5EBa3B482048f1465B8Be6a75D0eF04Ab3F6de)
